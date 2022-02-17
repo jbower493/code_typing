@@ -1,9 +1,13 @@
 import './letter.scss';
+import { letterStatuses } from '../../utlis/enums';
 
-const Letter = () => {
+const Letter = ({
+    letter,
+    status
+}) => {
     return (
-        <span>
-            a
+        <span className={`letter${status === letterStatuses.complete ? ` letter--${letterStatuses.complete}` : ''}`}>
+            {letter}
         </span>
     )
 }
