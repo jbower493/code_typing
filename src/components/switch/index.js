@@ -1,13 +1,14 @@
 const Switch = ({
     value,
     name,
-    label
+    label,
+    toggle
 }) => {
 
     return (
         <>
-            <label for={name}>{label}</label>
-            <input id={name} name={name} type="checkbox" value={value} />
+            <label htmlFor={name}>{label}</label>
+            <input id={name} name={name} type="checkbox" checked={value} onChange={toggle} />
         </>
     );
 };

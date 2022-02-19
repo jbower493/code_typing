@@ -3,12 +3,14 @@ import { createSlice } from '@reduxjs/toolkit'
 export const settingsSlice = createSlice({
     name: 'settings',
     initialState: {
-        caseSensitivity: true
+        caseSensitivity: false
     },
     reducers: {
-        toggleCaseSensitivity: state => !state.caseSensitivity
+        toggleCaseSensitivity: state => {
+            state.caseSensitivity = !state.caseSensitivity
+        }
     }
 });
 
-export const { increment, decrement, incrementByAmount } = settingsSlice.actions;
+export const { toggleCaseSensitivity } = settingsSlice.actions;
 export default settingsSlice.reducer;
