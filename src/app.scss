@@ -5,6 +5,14 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+button {
+    margin: 20px auto 0 auto;
+    display: block;
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+}
+
 .app {
     display: flex;
     flex-direction: column;

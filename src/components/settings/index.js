@@ -1,19 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
 import './style.scss';
-import { toggleCaseSensitivity } from './settingsSlice';
+import { toggleOnlyLowercase } from './settingsSlice';
 import Switch from '../switch';
 
 const Settings = () => {
-    const caseSensitivity = useSelector(state => state.settings.caseSensitivity);
+    const onlyLowercase = useSelector(state => state.settings.onlyLowercase);
     const dispatch = useDispatch();
-console.log(caseSensitivity)
+
     return (
         <header>
             <Switch
-                label={`Case Sensitivity`}
-                name={`case_sensitivity`}
-                value={caseSensitivity}
-                toggle={() => dispatch(toggleCaseSensitivity())}
+                label={`Only Lowercase`}
+                name={`only_lowercase`}
+                value={onlyLowercase}
+                toggle={() => dispatch(toggleOnlyLowercase())}
             />
         </header>
     );

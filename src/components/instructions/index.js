@@ -1,10 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { setView } from '../../appSlice';
 import './style.scss';
 
 const Instructions = ({
     startTime,
     endTime
 }) => {
+
+    const dispatch = useDispatch();
 
     const [currentTime, setCurrentTime] = useState(null);
     let timer = useRef();
@@ -34,6 +38,7 @@ const Instructions = ({
     return (
         <section className={`instructions`}>
             {getMessage()}
+            {endTime ? <button type={`button`} onClick={() => dispatch(setView('home'))}>Go Back Home</button> : ''}
         </section>
     )
 }

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import './style.scss';
 import Letter from '../letter';
 import { letterStatuses } from '../../utlis/enums';
@@ -13,8 +12,6 @@ const TypingArea = ({
 }) => {
     const [lettersCompleted, setLettersCompleted] = useState(0);
 
-    const caseSensitivity = useSelector(state => state.settings.caseSensitivity);
-
     useEffect(() => {
         const onKeyPressed = e => {
             if (!startTime) startTest();
@@ -22,15 +19,15 @@ const TypingArea = ({
             // handle the key press
 
             // mark the letter as completed if they type the correct letter
-            const typedLetter = caseSensitivity ? e.key : e.key.toLowerCase();
-            const targetLetter = caseSensitivity ? content[lettersCompleted] : content[lettersCompleted].toLowerCase();
+            const typedLetter = e.key;
+            const targetLetter = content[lettersCompleted];
             if (!endTime && typedLetter === targetLetter) setLettersCompleted(lettersCompleted + 1);
         }
 
         document.addEventListener('keypress', onKeyPressed);
 
         return () => document.removeEventListener('keypress', onKeyPressed);
-    }, [lettersCompleted, content, startTime, startTest, endTime, caseSensitivity]);
+    }, [lettersCompleted, content, startTime, startTest, endTime]);
 
     useEffect(() => {
         if (lettersCompleted === content.length && !endTime) endTest();
