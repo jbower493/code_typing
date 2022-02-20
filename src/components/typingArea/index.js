@@ -10,7 +10,24 @@ const TypingArea = ({
     endTime,
     endTest
 }) => {
-    const [lettersCompleted, setLettersCompleted] = useState(0);
+
+    const prepareContent = content => content.split('').map(char => ({
+        char,
+        appears: true,
+        complete: false,
+        correct: true,
+        errors: 0
+    }));
+
+    const [chars, setChars] = useState(prepareContent(content));
+
+    const onCharSuccess = index => {
+        setChars(prev => {
+            const newChars = [...prev];
+            newChars[index] = { ...newChars[index], complete: true };
+            return newChars;
+        });
+    };
 
     useEffect(() => {
         const onKeyPressed = e => {
@@ -20,23 +37,23 @@ const TypingArea = ({
 
             // mark the letter as completed if they type the correct letter
             const typedLetter = e.key;
-            const targetLetter = content[lettersCompleted];
-            if (!endTime && typedLetter === targetLetter) setLettersCompleted(lettersCompleted + 1);
+            const targetLetter = chars.find((char) => !char.complete);
+            if (!endTime && typedLetter === targetLetter.char) onCharSuccess(chars.indexOf(targetLetter));
         }
 
         document.addEventListener('keypress', onKeyPressed);
 
         return () => document.removeEventListener('keypress', onKeyPressed);
-    }, [lettersCompleted, content, startTime, startTest, endTime]);
+    }, [chars, content, startTime, startTest, endTime]);
 
     useEffect(() => {
-        if (lettersCompleted === content.length && !endTime) endTest();
-    }, [content.length, lettersCompleted, endTime, endTest])
+        if (!chars.find(char => !char.complete) && !endTime) endTest();
+    }, [content.length, chars, endTime, endTest])
 
     return (
         <section className={`typingArea`}>
-            {content.split('').map((letter, index) => (
-                <Letter key={index} letter={letter} status={index < lettersCompleted ? letterStatuses.complete : letterStatuses.incomplete} />
+            {chars.map((char, index) => (
+                <Letter key={index} letter={char.char} status={char.complete ? letterStatuses.complete : letterStatuses.incomplete} />
             ))}
         </section>
     )
