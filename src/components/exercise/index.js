@@ -10,19 +10,18 @@ const Exercise = ({
 
     const onlyLowercase = useSelector(state => state.settings.onlyLowercase);
 
-    const [currentTime, startTime, startTimer, endTime, stopTimer] = useTimer();
+    const [hasStarted, hasFinished, timePassed, finalTime, startTimer, stopTimer] = useTimer();
 
     return (
         <div className="exercise">
-            <Instructions startTime={startTime} endTime={endTime} currentTime={currentTime} />
-            {!endTime
+            <Instructions hasStarted={hasStarted} hasFinished={hasFinished} timePassed={timePassed} finalTime={finalTime} />
+            {!hasFinished
                 ? (
                     <TypingArea
                         content={onlyLowercase ? content.toLowerCase() : content}
-                        startTime={startTime}
-                        startTest={startTimer}
-                        endTime={endTime}
-                        endTest={stopTimer}
+                        hasStarted={hasStarted}
+                        startTimer={startTimer}
+                        stopTimer={stopTimer}
                     />
                 )
                 : ''

@@ -3,23 +3,24 @@ import { setView } from '../../appSlice';
 import './style.scss';
 
 const Instructions = ({
-    startTime,
-    endTime,
-    currentTime
+    hasStarted,
+    hasFinished,
+    timePassed,
+    finalTime
 }) => {
 
     const dispatch = useDispatch();
 
     const getMessage = () => {
-        if (!startTime) return 'Start typing to begin the test...';
-        if (startTime && !endTime) return ((currentTime ? currentTime - startTime : 0) / 1000).toFixed(1);
-        return <h2 className={`instructions__finalTime`}>Time: {((endTime - startTime) / 1000).toFixed(1)}s</h2>
+        if (!hasStarted) return 'Start typing to begin the test...';
+        if (!hasFinished) return timePassed;
+        return <h2 className={`instructions__finalTime`}>Time: {finalTime}s</h2>
     };
 
     return (
         <section className={`instructions`}>
             {getMessage()}
-            {endTime ? <button type={`button`} onClick={() => dispatch(setView('home'))}>Go Back Home</button> : ''}
+            {hasFinished ? <button type={`button`} onClick={() => dispatch(setView('home'))}>Go Back Home</button> : ''}
         </section>
     )
 }

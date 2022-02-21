@@ -30,7 +30,20 @@ const useTimer = () => {
         }
     }, [startTime, endTime])
 
-    return [currentTime, startTime, startTimer, endTime, stopTimer];
+    return [
+        // hasStarted
+        !!startTime,
+        // hasFinished
+        !!endTime,
+        // timePassed
+        ((currentTime ? currentTime - startTime : 0) / 1000).toFixed(1),
+        // finalTime
+        endTime ? ((endTime - startTime) / 1000).toFixed(1) : false,
+        // startTimer
+        startTimer,
+        // stopTimer
+        stopTimer
+    ];
 };
 
 export default useTimer;

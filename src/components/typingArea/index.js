@@ -5,10 +5,9 @@ import { letterStatuses } from '../../utlis/enums';
 
 const TypingArea = ({
     content,
-    startTime,
-    startTest,
-    endTime,
-    endTest
+    hasStarted,
+    startTimer,
+    stopTimer
 }) => {
 
     const prepareContent = content => content.split('').map(char => ({
@@ -31,24 +30,24 @@ const TypingArea = ({
 
     useEffect(() => {
         const onKeyPressed = e => {
-            if (!startTime) startTest();
+            if (!hasStarted) startTimer();
 
             // handle the key press
 
             // mark the letter as completed if they type the correct letter
             const typedLetter = e.key;
             const targetLetter = chars.find((char) => !char.complete);
-            if (!endTime && typedLetter === targetLetter.char) onCharSuccess(chars.indexOf(targetLetter));
+            if (typedLetter === targetLetter.char) onCharSuccess(chars.indexOf(targetLetter));
         }
 
         document.addEventListener('keypress', onKeyPressed);
 
         return () => document.removeEventListener('keypress', onKeyPressed);
-    }, [chars, content, startTime, startTest, endTime]);
+    }, [chars, content, hasStarted, startTimer]);
 
     useEffect(() => {
-        if (!chars.find(char => !char.complete) && !endTime) endTest();
-    }, [content.length, chars, endTime, endTest])
+        if (!chars.find(char => !char.complete)) stopTimer();
+    }, [content.length, chars, stopTimer])
 
     return (
         <section className={`typingArea`}>
