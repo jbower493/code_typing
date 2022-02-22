@@ -18,7 +18,9 @@ const Exercise = ({
             {!hasFinished
                 ? (
                     <TypingArea
-                        content={onlyLowercase ? content.toLowerCase() : content}
+                        // content={onlyLowercase ? content.toLowerCase() : content}
+                        displayContent={"const arrowFunc = () => {console.log('Its es6');return true;};"}
+                        content={"const arrowFunc = (`rightArrow` => {`enter`console.log('Its es6`rightArrow``rightArrow`;`enter`return true;"}
                         hasStarted={hasStarted}
                         startTimer={startTimer}
                         stopTimer={stopTimer}
@@ -31,3 +33,8 @@ const Exercise = ({
 }
 
 export default Exercise;
+
+const arrowFunc = () => {
+    console.log('Its es6');
+    return true;
+}
