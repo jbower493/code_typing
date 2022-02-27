@@ -47,7 +47,7 @@ const TypingArea = ({
 
     useEffect(() => {
         if (!chars.find(char => !char.complete)) stopTimer();
-    }, [content.length, chars, stopTimer])
+    }, [chars, stopTimer])
 
     return (
         <section className={`typingArea`}>

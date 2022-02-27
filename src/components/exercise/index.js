@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import './style.scss';
-import TypingArea from '../typingArea';
+import TypingArea from '../typingArea/editorMode';
 import Instructions from '../instructions';
 import useTimer from '../../hooks/useTimer';
 
@@ -19,8 +19,21 @@ const Exercise = ({
                 ? (
                     <TypingArea
                         // content={onlyLowercase ? content.toLowerCase() : content}
-                        displayContent={"const arrowFunc = () => {console.log('Its es6');return true;};"}
-                        content={"const arrowFunc = (`rightArrow` => {`enter`console.log('Its es6`rightArrow``rightArrow`;`enter`return true;"}
+                        content={[
+                            'h',
+                            'e',
+                            'l',
+                            'l',
+                            'o',
+                            "\n",
+                            "m",
+                            "y",
+                            " ",
+                            "m",
+                            "a",
+                            "t",
+                            "e"
+                        ].join('')}
                         hasStarted={hasStarted}
                         startTimer={startTimer}
                         stopTimer={stopTimer}
@@ -33,8 +46,3 @@ const Exercise = ({
 }
 
 export default Exercise;
-
-const arrowFunc = () => {
-    console.log('Its es6');
-    return true;
-}

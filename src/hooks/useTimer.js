@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 const useTimer = () => {
     const [currentTime, setCurrentTime] = useState(null);
@@ -6,13 +6,13 @@ const useTimer = () => {
     const [endTime, setEndTime] = useState(null);
     let timer = useRef();
 
-    const startTimer = () => {
+    const startTimer = useCallback(() => {
         setStartTime(Date.now());
-    };
+    }, []);
 
-    const stopTimer = () => {
+    const stopTimer = useCallback(() => {
         setEndTime(Date.now());
-    };
+    }, []);
 
     useEffect(() => {
         if (startTime && !endTime) {
