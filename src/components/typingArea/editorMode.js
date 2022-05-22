@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './style.scss';
 import Letter from '../letter';
 import { letterStatuses } from '../../utils/enums';
-import { getCharCode } from '../../utils/functions';
 
 const TypingArea = ({
     content,
-    hasStarted,
+    startTime,
     startTimer,
     stopTimer
 }) => {
@@ -16,11 +15,7 @@ const TypingArea = ({
             .split('')
             .map(char => ({
                 char,
-                charCode: getCharCode(char),
-                appears: true,
-                complete: false,
-                correct: true,
-                errors: 0
+                complete: false
             }))
     };
 
@@ -34,33 +29,43 @@ const TypingArea = ({
         });
     };
 
+    const getNextChar = useCallback(() => chars.find((char) => !char.complete), [chars]);
+
     useEffect(() => {
-        const onKeyPressed = e => {
-            if (!hasStarted) startTimer();
+        const onKeyDown = e => {
+            if (!startTime) startTimer();
 
             // handle the key press
 
             // mark the letter as completed if they type the correct letter
-            const typedLetter = e.charCode;
-            const targetLetter = chars.find((char) => !char.complete);console.log(typedLetter, targetLetter.charCode)
-            if (typedLetter === targetLetter.charCode) onCharSuccess(chars.indexOf(targetLetter));
+            const typedLetter = e.key;
+            const targetLetter = getNextChar();
+            if (typedLetter === targetLetter.char) onCharSuccess(chars.indexOf(targetLetter));
         }
 
-        document.addEventListener('keypress', onKeyPressed);
+        document.addEventListener('keydown', onKeyDown);
 
-        return () => document.removeEventListener('keypress', onKeyPressed);
-    }, [chars, content, hasStarted, startTimer]);
+        return () => document.removeEventListener('keydown', onKeyDown);
+    }, [chars, content, startTime, startTimer, getNextChar]);
 
     useEffect(() => {
-        if (!chars.find(char => !char.complete)) stopTimer();
-    }, [chars, stopTimer])
+        if (!getNextChar()) stopTimer();
+    }, [chars, stopTimer, getNextChar])
 
     return (
-        <section className={`typingArea`}>
-            {chars.map((char, index) => (
-                <Letter key={index} letter={char.char} code={char.charCode} status={char.complete ? letterStatuses.complete : letterStatuses.incomplete} />
-            ))}
-        </section>
+        <>
+            <section className={`typingArea`}>
+                {chars.map((char, index) => (
+                    <Letter
+                        key={index}
+                        letter={char.char}
+                        status={char.complete ? letterStatuses.complete : letterStatuses.incomplete}
+                    />
+                ))}
+            </section>
+
+            {getNextChar() ? <div>{getNextChar()?.char}</div> : ''}
+        </>
     )
 }
 

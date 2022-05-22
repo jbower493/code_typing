@@ -10,18 +10,22 @@ const Exercise = ({
 
     const onlyLowercase = useSelector(state => state.settings.onlyLowercase);
 
-    const [hasStarted, hasFinished, timePassed, finalTime, startTimer, stopTimer] = useTimer();
+    const [startTime, endTime, startTimer, stopTimer] = useTimer();
 
     return (
         <div className="exercise">
-            <Instructions hasStarted={hasStarted} hasFinished={hasFinished} timePassed={timePassed} finalTime={finalTime} />
-            {!hasFinished
+            <Instructions
+                startTime={startTime}
+                endTime={endTime}
+            />
+            {!endTime
                 ? (
                     <TypingArea
                         // content={onlyLowercase ? content.toLowerCase() : content}
                         // this is an arrow func but without the indentation inside the curly braces
-                        content={'const arrow = () => {\nconsole.log("hey");\n};'}
-                        hasStarted={hasStarted}
+                        // content={'const arrow = () => {\nconsole.log("hey");\n};'}
+                        content={`const ( => {`}
+                        startTime={startTime}
                         startTimer={startTimer}
                         stopTimer={stopTimer}
                     />

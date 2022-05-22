@@ -1,23 +1,24 @@
-export const getCharCode = char => [10, 13].includes(char.charCodeAt(0)) ? 13 : char.charCodeAt(0);
-
-export const transformChar = char => {
+export const getDisplayChar = char => {
 
     switch (char) {
         // bracket
-        case '(': return '1';
+        case '(': return '()';
         // angle quote
-        case '`': return '1';
+        case '`': return '``';
         // curly brace
-        case '{': return '1';
+        case '{': return '{}';
         // single quote
-        case "'": return '1';
+        case "'": return "''";
         // square bracket
-        case '[': return '1';
+        case '[': return '[]';
         // double quote
-        case '"': return '1';
+        case '"': return '""';
+        // directional arrows
+        case 'ArrowLeft': return '';
+        case 'ArrowRight': return '';
         // enter / new line
         case '\n': return 'its a new dawn its a new day its a new line for me';
-        default: return '';
+        default: return char;
     }
 };
 

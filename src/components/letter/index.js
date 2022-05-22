@@ -1,10 +1,9 @@
 import './letter.scss';
 import { letterStatuses } from '../../utils/enums';
-import { transformChar } from '../../utils/functions';
+import { getDisplayChar } from '../../utils/functions';
 
 const Letter = ({
     letter,
-    code,
     status
 }) => {
 
@@ -12,7 +11,7 @@ const Letter = ({
 
     return (
         <span className={`letter${status === letterStatuses.complete ? ` letter--${letterStatuses.complete}` : ''}`}>
-            {letter}
+            {getDisplayChar(letter)}
         </span>
     )
 }
