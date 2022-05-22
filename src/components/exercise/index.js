@@ -19,21 +19,8 @@ const Exercise = ({
                 ? (
                     <TypingArea
                         // content={onlyLowercase ? content.toLowerCase() : content}
-                        content={[
-                            'h',
-                            'e',
-                            'l',
-                            'l',
-                            'o',
-                            "\n",
-                            "m",
-                            "y",
-                            " ",
-                            "m",
-                            "a",
-                            "t",
-                            "e"
-                        ].join('')}
+                        // this is an arrow func but without the indentation inside the curly braces
+                        content={'const arrow = () => {\nconsole.log("hey");\n};'}
                         hasStarted={hasStarted}
                         startTimer={startTimer}
                         stopTimer={stopTimer}
