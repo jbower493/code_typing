@@ -24,7 +24,7 @@ const Exercise = ({
                         // content={onlyLowercase ? content.toLowerCase() : content}
                         // this is an arrow func but without the indentation inside the curly braces
                         // content={'const arrow = () => {\nconsole.log("hey");\n};'}
-                        content={`const ( => {`}
+                        content={`const (${encoding.START}ArrowRight${encoding.END} => (${encoding.START}ArrowRight${encoding.END} => {${encoding.START}ArrowRight${encoding.END};`}
                         startTime={startTime}
                         startTimer={startTimer}
                         stopTimer={stopTimer}
@@ -37,3 +37,8 @@ const Exercise = ({
 }
 
 export default Exercise;
+
+export const encoding = {
+    START: '{#{',
+    END: '}#}'
+};

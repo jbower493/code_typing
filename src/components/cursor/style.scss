@@ -1,0 +1,12 @@
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 20px;
+    position: relative;
+    top: 3px;
+    background-color: black;
+
+    &--hidden {
+        opacity: 0;
+    }
+}

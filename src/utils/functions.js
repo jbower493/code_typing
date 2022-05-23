@@ -22,23 +22,10 @@ export const getDisplayChar = char => {
     }
 };
 
-export const transformCode = code => {
+export const getNextCharDisplay = char => {
 
-    switch (code) {
-        // bracket
-        case 40: return '';
-        // angle quote
-        case 96: return '';
-        // curly brace
-        case 123: return '';
-        // single quote
-        case 39: return '';
-        // square bracket
-        case 91: return '';
-        // double quote
-        case 34: return '';
-        // enter / new line
-        case 10: return '';
-        default: return '';
+    switch (char) {
+        case ' ': return 'Spacebar'
+        default: return char;
     }
 };

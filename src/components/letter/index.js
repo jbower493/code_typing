@@ -1,19 +1,40 @@
 import './letter.scss';
+import Cursor from '../cursor';
 import { letterStatuses } from '../../utils/enums';
-import { getDisplayChar } from '../../utils/functions';
 
 const Letter = ({
     letter,
-    status
+    status,
+    displayedChar,
+    showCursorBetweenDoubleChar
 }) => {
 
-    if (letter === '\n') return <div>{letter}<br/></div>
+    // if (letter === '\n') return (
+    //     <div>
+    //         {renderCursor()}
+    //         {letter}
+    //         <br/>
+    //     </div>
+    // );
 
-    return (
-        <span className={`letter${status === letterStatuses.complete ? ` letter--${letterStatuses.complete}` : ''}`}>
-            {getDisplayChar(letter)}
-        </span>
-    )
+
+    return showCursorBetweenDoubleChar
+        ? (
+            <>
+                <span className={`letter${status === letterStatuses.complete ? ` letter--${letterStatuses.complete}` : ''}`}>
+                    {displayedChar[0]}
+                    <Cursor />
+                    {displayedChar[1]}
+                </span>
+            </>
+        )
+        : (
+            <>
+                <span className={`letter${status === letterStatuses.complete ? ` letter--${letterStatuses.complete}` : ''}`}>
+                    {displayedChar}
+                </span>
+            </>
+        )
 }
 
 export default Letter;
